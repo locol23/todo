@@ -1,10 +1,7 @@
 import React from 'react'
-import { setup } from 'goober'
-import { prefix } from 'goober-autoprefixer'
 import { AppPropsType } from 'next/dist/next-server/lib/utils'
 import Head from 'next/head'
-
-setup(React.createElement, prefix)
+import 'sanitize.css'
 
 const App = ({ Component, pageProps }: AppPropsType) => (
   <>
