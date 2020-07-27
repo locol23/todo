@@ -8,28 +8,24 @@ type Inputs = {
   password: string
 }
 
-const SignUp = () => {
+const LogIn = () => {
   const router = useRouter()
   const { register, handleSubmit, errors } = useForm<Inputs>()
   const onSubmit = ({ email, password }: Inputs) => {
     firebase
       .auth()
-      .createUserWithEmailAndPassword(email, password)
+      .signInWithEmailAndPassword(email, password)
       .then(() => {
         router.push('/')
       })
       .catch((error) => {
-        if (error.code === 'auth/email-already-in-use') {
-          alert(`${error.message} / 既に登録済みのメールアドレスです。`)
-          return
-        }
-        alert(`Something went wrong. ${error.message} / トラブルが発生しました。時間をおいてやり直してください。`)
+        alert('Email or Password is wrong / メールアドレスまたはパスワードが違います（' + error.message + '）')
       })
   }
 
   return (
     <>
-      <h1>Sign Up</h1>
+      <h1>Log in</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div>
           <label>Email</label>
@@ -66,11 +62,11 @@ const SignUp = () => {
         </div>
         <div>{errors.password && errors.password.message}</div>
 
-        <button type="submit">Sign Up</button>
+        <button type="submit">Sign In</button>
       </form>
     </>
   )
 }
 
-export default SignUp
+export default LogIn
 
